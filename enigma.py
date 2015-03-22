@@ -33,24 +33,24 @@ class Enigma(object):
 			
 		return encrypted
 	
+if __name__ == "__main__":
+	r_right = Rotor(1, 0)
+	r_middle = Rotor(2, 0)
+	r_left = Rotor(3, 0)
+	reflector = Reflector("A")
+	plugboard = Plugboard("AB CD EF GH IJ KL MN OP QR ST")
 
-r_right = Rotor(1, 0)
-r_middle = Rotor(2, 0)
-r_left = Rotor(3, 0)
-reflector = Reflector("A")
-plugboard = Plugboard("AB CD EF GH IJ KL MN OP QR ST")
+	input_text = "HELLOWORLD"
 
-input_text = "HELLOWORLD"
+	print "Input:", input_text
 
-print "Input:", input_text
+	e = Enigma(reflector, r_left, r_middle, r_right, plugboard)
+	encrypted = e.encrypt(input_text)
+	print "Encrypted:", encrypted
 
-e = Enigma(reflector, r_left, r_middle, r_right, plugboard)
-encrypted = e.encrypt(input_text)
-print "Encrypted:", encrypted
+	r_left.set_position(0)
+	r_middle.set_position(0)
+	r_right.set_position(0)
 
-r_left.set_position(0)
-r_middle.set_position(0)
-r_right.set_position(0)
-
-decrypted = e.encrypt(encrypted)
-print "Decrypted:", decrypted
+	decrypted = e.encrypt(encrypted)
+	print "Decrypted:", decrypted
