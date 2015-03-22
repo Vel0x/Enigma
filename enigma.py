@@ -20,25 +20,34 @@ class Enigma(object):
 		encrypted = ""
 		for c in plaintext:
 			e = self.plugboard.convert(c)
+			print "Plugboard", e
 			e = self.right_rotor.convert_forward(e)
+			print "RRF", e
 			e = self.middle_rotor.convert_forward(e)
+			print "RMF", e
 			e = self.left_rotor.convert_forward(e)
+			print "RLF", e
 			e = self.reflector.reflect(e)
+			print "R", e
 			e = self.left_rotor.convert_backward(e)
+			print "RLB", e
 			e = self.middle_rotor.convert_backward(e)
+			print "RMB", e
 			e = self.right_rotor.convert_backward(e)
+			print "RRB", e
 			e = self.plugboard.convert(e)
+			print "Plugboard", e
 			self.right_rotor.increment_position()
 			encrypted += e
 			
 		return encrypted
 	
 if __name__ == "__main__":
-	r_right = Rotor(1, 0)
+	r_right = Rotor(3, 0)
 	r_middle = Rotor(2, 0)
-	r_left = Rotor(3, 0)
+	r_left = Rotor(1, 0)
 	reflector = Reflector("A")
-	plugboard = Plugboard("AB CD EF GH IJ KL MN OP QR ST")
+	plugboard = Plugboard("AZ BP CH DN EM FS GW JY KT LQ")
 
 	input_text = "HELLOWORLD"
 
@@ -54,3 +63,8 @@ if __name__ == "__main__":
 
 	decrypted = e.encrypt(encrypted)
 	print "Decrypted:", decrypted
+
+	if input_text == decrypted:
+		print "Decryption successful"
+	else:
+		print "Decryption failed"
