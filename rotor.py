@@ -47,6 +47,7 @@ class Rotor(object):
 	
 	def set_position(self, value):
 		self.position = value
+		self.create_mapping()
 		
 	def set_neighbours(self, left, right):
 		self.left_rotor = left
