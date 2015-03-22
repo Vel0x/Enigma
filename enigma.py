@@ -20,23 +20,14 @@ class Enigma(object):
 		encrypted = ""
 		for c in plaintext:
 			e = self.plugboard.convert(c)
-			print "Plugboard", e
 			e = self.right_rotor.convert_forward(e)
-			print "RRF", e
 			e = self.middle_rotor.convert_forward(e)
-			print "RMF", e
 			e = self.left_rotor.convert_forward(e)
-			print "RLF", e
 			e = self.reflector.reflect(e)
-			print "R", e
 			e = self.left_rotor.convert_backward(e)
-			print "RLB", e
 			e = self.middle_rotor.convert_backward(e)
-			print "RMB", e
 			e = self.right_rotor.convert_backward(e)
-			print "RRB", e
 			e = self.plugboard.convert(e)
-			print "Plugboard", e
 			self.right_rotor.increment_position()
 			encrypted += e
 			
